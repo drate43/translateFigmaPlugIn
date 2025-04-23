@@ -1,0 +1,61 @@
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.button {
+  padding: 8px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background-color: var(--hover-bg);
+}
+
+.button:disabled {
+  color: var(--disabled-text);
+  background-color: var(--hover-bg);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.selectedText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: var(--selected-bg);
+  font-size: 13px;
+}
+
+.selectedTextContent {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: var(--bg-color);
+  word-break: break-all;
+  line-height: 1.4;
+  font-size: 13px;
+}
