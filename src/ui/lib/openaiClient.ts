@@ -1,5 +1,5 @@
-import { OpenAI } from 'openai';
-import { TranslateFunction, TranslationProvider } from '../../shared';
+import { OpenAI } from "openai";
+import { TranslateFunction, TranslationProvider } from "../../shared/type";
 
 // OpenAI 번역 프로바이더
 export const createOpenAIProvider = (): TranslationProvider => {
@@ -11,23 +11,23 @@ export const createOpenAIProvider = (): TranslationProvider => {
   const translate: TranslateFunction = async (text, targetLanguage) => {
     try {
       const response = await openai.chat.completions.create({
-        model: 'gpt-4',
+        model: "gpt-4",
         messages: [
           {
-            role: 'system',
+            role: "system",
             content: `You are a translation bot. Translate the given text into ${targetLanguage}.`,
           },
           {
-            role: 'user',
+            role: "user",
             content: text,
           },
         ],
       });
 
-      return response.choices[0]?.message?.content || 'Translation failed';
+      return response.choices[0]?.message?.content || "Translation failed";
     } catch (error) {
-      console.error('Translation error:', error);
-      return 'Translation failed';
+      console.error("Translation error:", error);
+      return "Translation failed";
     }
   };
 

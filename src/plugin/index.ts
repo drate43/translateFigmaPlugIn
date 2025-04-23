@@ -1,4 +1,4 @@
-import { PluginMessagePayload } from '../shared';
+import { PluginMessagePayload } from "./type";
 
 figma.showUI(__html__, {
   width: 240,
@@ -15,7 +15,7 @@ const loadFontFromFigma = async (font: FontName): Promise<void> => {
   try {
     await figma.loadFontAsync(font);
   } catch (error) {
-    console.error('폰트 로딩 실패:', font, error);
+    console.error("폰트 로딩 실패:", font, error);
     figma.notify(`폰트 로딩 실패: ${font.family}`);
   }
 };
@@ -25,7 +25,7 @@ const loadFontFromFigma = async (font: FontName): Promise<void> => {
 async function sendSelectedTextToUI() {
   const { selection } = figma.currentPage;
   const textNodes = selection.filter(
-    (node): node is TextNode => node.type === 'TEXT',
+    (node): node is TextNode => node.type === "TEXT"
   );
 
   if (textNodes.length > 0) {
@@ -40,19 +40,19 @@ async function sendSelectedTextToUI() {
 
     const texts = textNodes.map((node) => node.characters);
     figma.ui.postMessage({
-      type: 'selectionChange',
-      text: texts.join('\n'),
+      type: "selectionChange",
+      text: texts.join("\n"),
     } as PluginMessagePayload);
   } else {
     figma.ui.postMessage({
-      type: 'unselectionChange',
-      text: '',
+      type: "unselectionChange",
+      text: "",
     } as PluginMessagePayload);
   }
 }
 
 // 선택 변경 시 이벤트 처리
-figma.on('selectionchange', () => {
+figma.on("selectionchange", () => {
   sendSelectedTextToUI();
 });
 
@@ -61,11 +61,11 @@ const translateText = async (translatedText: string) => {
 
   // 선택된 텍스트 노드들 필터링
   const textNodes = selection.filter(
-    (node): node is TextNode => node.type === 'TEXT',
+    (node): node is TextNode => node.type === "TEXT"
   );
 
   if (textNodes.length === 0) {
-    figma.notify('텍스트를 선택해주세요.');
+    figma.notify("텍스트를 선택해주세요.");
     return;
   }
 
@@ -77,10 +77,10 @@ const translateText = async (translatedText: string) => {
       updatedNode.characters = translatedText;
     });
 
-    figma.notify('번역이 완료되었습니다.');
+    figma.notify("번역이 완료되었습니다.");
   } catch (error) {
-    console.error('텍스트 업데이트 실패:', error);
-    figma.notify('텍스트 업데이트에 실패했습니다.');
+    console.error("텍스트 업데이트 실패:", error);
+    figma.notify("텍스트 업데이트에 실패했습니다.");
   }
 };
 

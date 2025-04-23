@@ -1,21 +1,18 @@
-import { useState } from 'react';
-import {
-  getTranslationProvider,
-  ProviderType,
-  TranslateLanguageType,
-} from '../../shared';
+import { useState } from "react";
+import { getTranslationProvider } from "../../shared";
+import { ProviderType, TranslateLanguageType } from "../../shared/type";
 
 type TranslateProps = {
   provider: ProviderType;
 };
 
 export const useTranslation = ({ provider }: TranslateProps) => {
-  const [translatedText, setTranslatedText] = useState<string>('');
+  const [translatedText, setTranslatedText] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   const translate = async (
     text: string,
-    targetLanguage: TranslateLanguageType,
+    targetLanguage: TranslateLanguageType
   ) => {
     setLoading(true);
     const translationProvider = getTranslationProvider(provider);

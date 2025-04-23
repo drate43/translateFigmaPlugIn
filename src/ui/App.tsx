@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { PluginMessagePayload, TranslateLanguageType } from '../shared';
-import styles from './styles.module.css';
+import React, { useEffect, useState } from "react";
 
-import { requestTranslateToPlugin } from './lib/figma';
-import { useTranslation } from './hooks/useTranslate';
+import styles from "./styles.module.css";
+
+import { requestTranslateToPlugin } from "./lib/figma";
+import { useTranslation } from "./hooks/useTranslate";
+import { PluginMessagePayload } from "../plugin/type";
+import { TranslateLanguageType } from "../shared/type";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedText, setSelectedText] = useState('');
+  const [selectedText, setSelectedText] = useState("");
   const { translate } = useTranslation({
-    provider: 'openAI',
+    provider: "openAI",
   });
 
   useEffect(() => {
     // 피그마에서 플러그인으로 보내는 메세지 수신
     window.onmessage = (event) => {
       const message = event.data.pluginMessage as PluginMessagePayload;
-      if (message.type === 'selectionChange') {
+      if (message.type === "selectionChange") {
         setSelectedText(message.text);
       } else {
         setIsLoading(false);
-        setSelectedText('');
+        setSelectedText("");
       }
     };
   }, []);
@@ -33,7 +35,7 @@ function App() {
       const result = await translate(selectedText, targetLanguage);
       requestTranslateToPlugin(result);
     } catch (error) {
-      console.error('번역 중 오류 발생:', error);
+      console.error("번역 중 오류 발생:", error);
     } finally {
       setIsLoading(false);
     }
@@ -46,18 +48,26 @@ function App() {
         <button
           type="button"
           className={styles.button}
-          onClick={() => handleTranslate('japanese')}
+          onClick={() => handleTranslate("japanese")}
           disabled={isLoading || !selectedText}
         >
-          {isLoading ? '번역 중...' : '일본어로 번역'}
+          {isLoading ? "번역 중..." : "일본어"}
         </button>
         <button
           type="button"
           className={styles.button}
-          onClick={() => handleTranslate('korean')}
+          onClick={() => handleTranslate("korean")}
           disabled={isLoading || !selectedText}
         >
-          {isLoading ? '번역 중...' : '한국어로 번역'}
+          {isLoading ? "번역 중..." : "한국어"}
+        </button>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => handleTranslate("english")}
+          disabled={isLoading || !selectedText}
+        >
+          {isLoading ? "번역 중..." : "영어"}
         </button>
       </div>
       {selectedText && (

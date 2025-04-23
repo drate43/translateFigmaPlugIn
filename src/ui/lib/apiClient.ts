@@ -1,4 +1,4 @@
-import { TranslateFunction, TranslationProvider } from "../../shared";
+import { TranslateFunction, TranslationProvider } from "../../shared/type";
 
 // api 서버를 이용하는 번역 프로바이더
 export const createAPIProvider = (): TranslationProvider => {
