@@ -47,9 +47,9 @@ translateFigmaPlugIn/
    ```bash
    yarn install
    ```
-2. 개발 모드 빌드(자동 감지)
+2. 빌드
    ```bash
-   yarn watch
+   yarn build
    ```
 3. Figma에서 플러그인 등록
    - Figma Desktop 앱 → 우측 상단 프로필 → Plugins → In development → + 버튼
@@ -57,10 +57,5 @@ translateFigmaPlugIn/
 
 ## 번역 기능 개요
 
-- 선택한 텍스트를 UI에서 한글/일본어로 번역 요청
+- 선택한 텍스트를 UI에서 한글/일본어/영어로 번역 요청
 - 번역 provider(OpenAI, 외부 API) 중 선택 가능(설정/코드에서)
-- 번역 결과는 Figma 텍스트 노드에 바로 반영
-
-## 라이선스
-
-MIT
